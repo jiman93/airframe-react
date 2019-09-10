@@ -6,6 +6,8 @@ import {
 } from 'react-router';
 
 // ----------- Pages Imports ---------------
+import Doctors from './Doctors';
+
 import Analytics from './Dashboards/Analytics';
 import ProjectsDashboard from './Dashboards/Projects';
 import System from './Dashboards/System';
@@ -114,6 +116,10 @@ import { SidebarASidebar } from './../layout/components/SidebarASidebar';
 export const RoutedContent = () => {
     return (
         <Switch>
+
+            <Route path='/doctors' exact component={Doctors} />
+
+            { /*    Dashboards Routes     */ }
             <Redirect from="/" to="/dashboards/projects" exact />
             
             <Route path="/dashboards/analytics" exact component={Analytics} />
