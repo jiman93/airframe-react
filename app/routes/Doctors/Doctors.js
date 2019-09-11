@@ -2,23 +2,24 @@ import React from "react";
 import { getAll } from "./actions/doctor-actions";
 
 import BootstrapTable from "react-bootstrap-table-next";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  CardTitle,
-  CardBody,
-  Table
-} from "./../../components";
+import ToolkitProvider from "react-bootstrap-table2-toolkit";
+import { Container, Row, Col, ButtonGroup, Button } from "./../../components";
+
 import paginationFactory, {
   PaginationProvider,
   PaginationListStandalone,
   PaginationTotalStandalone,
   SizePerPageDropdownStandalone
 } from "react-bootstrap-table2-paginator";
+import filterFactory from "react-bootstrap-table2-filter";
 
-import { TrTableHoverable } from "./components/TrTableHoverable";
+import { buildCustomTextFilter } from "./filters";
+import { CustomExportCSV } from "./components/CustomExportButton";
+import { CustomSearch } from "./components/CustomSearch";
+const sortCaret = order => {
+  if (!order) return <i className="fa fa-fw fa-sort text-muted"></i>;
+  if (order) return <i className={`fa fa-fw text-muted fa-sort-${order}`}></i>;
+};
 
 class Doctors extends React.Component {
   state = {
@@ -34,6 +35,10 @@ class Doctors extends React.Component {
     this.setState({ resource, meta });
   }
 
+  handleDeleteRow() {
+    console.log("deleted");
+  }
+
   render() {
     const { resource, meta } = this.state;
     console.log("resource", resource);
@@ -41,27 +46,81 @@ class Doctors extends React.Component {
     const columns = [
       {
         dataField: "name",
-        text: "Name"
+        text: "Name",
+        sort: true,
+        sortCaret,
+        formatter: cell => <span className="text-inverse">{cell}</span>,
+        ...buildCustomTextFilter({
+          placeholder: "Filter by name",
+          getFilter: filter => {
+            this.nameFilter = filter;
+          }
+        })
       },
       {
         dataField: "providernumber",
-        text: "Provider Number"
+        text: "Provider Number",
+        sort: true,
+        sortCaret,
+        formatter: cell => <span>{cell}</span>,
+        ...buildCustomTextFilter({
+          placeholder: "Filter by provider no",
+          getFilter: filter => {
+            this.providerNumberFilter = filter;
+          }
+        })
       },
       {
         dataField: "location",
-        text: "Location"
+        text: "Location",
+        sort: true,
+        sortCaret,
+        formatter: cell => <span>{cell}</span>,
+        ...buildCustomTextFilter({
+          placeholder: "Filter by location",
+          getFilter: filter => {
+            this.locationFitler = filter;
+          }
+        })
       },
       {
         dataField: "practice",
-        text: "Practice"
+        text: "Practice",
+        sort: true,
+        sortCaret,
+        formatter: cell => <span className="text-inverse">{cell}</span>,
+        ...buildCustomTextFilter({
+          placeholder: "Filter by practice",
+          getFilter: filter => {
+            this.practiceFilter = filter;
+          }
+        })
       },
       {
         dataField: "verified",
-        text: "Verified"
+        text: "Verified",
+        sort: true,
+        sortCaret,
+        formatter: cell => cell,
+        ...buildCustomTextFilter({
+          placeholder: "Filter by verified",
+          getFilter: filter => {
+            this.verifiedFilter = filter;
+          }
+        })
       },
       {
         dataField: "status",
-        text: "status"
+        text: "Status",
+        sort: true,
+        sortCaret,
+        formatter: cell => cell,
+        ...buildCustomTextFilter({
+          placeholder: "Filter by status",
+          getFilter: filter => {
+            this.statusFilter = filter;
+          }
+        })
       }
     ];
 
@@ -71,65 +130,83 @@ class Doctors extends React.Component {
     };
 
     return (
-      <React.Fragment>
-        <Container>
-          <Row>
-            <Col lg={12}>
-              <Card className="mb-3" style={{ padding: "20px" }}>
-                <CardBody>
-                  <CardTitle tag="h6">
-                    Table Hoverable
-                    <span className="small ml-1 text-muted">#4.01</span>
-                  </CardTitle>
-                  <p className="mb-0">
-                    Use <code>hover</code> to add zebra-striping to any table
-                    row within the <code>&lt;tbody&gt;</code>.
-                  </p>
-                </CardBody>
-                {/* START Table */}
+      <ToolkitProvider
+        keyField="id"
+        data={resource}
+        columns={columns}
+        search
+        exportCSV
+      >
+        {props => (
+          <React.Fragment>
+            <Container>
+              <div className="d-flex justify-content-end align-items-center mb-2">
+                <h6 className="my-0">Doctors</h6>
+                <div className="d-flex ml-auto">
+                  <CustomSearch className="mr-2" {...props.searchProps} />
+                  <ButtonGroup>
+                    <CustomExportCSV {...props.csvProps}>
+                      Export
+                    </CustomExportCSV>
+                    <Button
+                      size="sm"
+                      outline
+                      onClick={this.handleDeleteRow.bind(this)}
+                    >
+                      Delete
+                    </Button>
+                    <Button
+                      size="sm"
+                      outline
+                      onClick={this.handleDeleteRow.bind(this)}
+                    >
+                      <i className="fa fa-fw fa-plus"></i>
+                    </Button>
+                  </ButtonGroup>
+                </div>
+              </div>
+              {/* START Table */}
 
-                {resource.length > 0 && (
-                  <PaginationProvider
-                    pagination={paginationFactory(paginationOption)}
-                  >
-                    {({ paginationProps, paginationTableProps }) => (
-                      <div>
-                        <BootstrapTable
-                          keyField="id"
-                          hover
-                          data={resource}
-                          columns={columns}
-                          {...paginationTableProps}
-                        />
-                        <Row>
-                          <Col lg={{ size: 4, offset: 3 }}>
-                            <Row>
-                              <PaginationListStandalone {...paginationProps} />
-                              {console.log({ ...paginationProps })}
-                              <SizePerPageDropdownStandalone
-                                {...paginationProps}
-                                variation={"dropup"}
-                              />
-                            </Row>
-                          </Col>
-                          {/* <Col lg={2}>
-                            
-                          </Col> */}
-                          <Col lg={4}>
-                            <PaginationTotalStandalone {...paginationProps} />
-                          </Col>
-                        </Row>
-                      </div>
-                    )}
-                  </PaginationProvider>
-                )}
+              {resource.length > 0 && (
+                <PaginationProvider
+                  pagination={paginationFactory(paginationOption)}
+                >
+                  {({ paginationProps, paginationTableProps }) => (
+                    <div>
+                      <BootstrapTable
+                        classes="table-responsive"
+                        striped
+                        responsive
+                        filter={filterFactory()}
+                        bordered={false}
+                        {...paginationTableProps}
+                        {...props.baseProps}
+                      />
+                      <Row>
+                        <Col lg={{ size: 4, offset: 3 }}>
+                          <Row>
+                            <PaginationListStandalone {...paginationProps} />
+                            {console.log({ ...paginationProps })}
+                            <SizePerPageDropdownStandalone
+                              {...paginationProps}
+                              variation={"dropup"}
+                            />
+                          </Row>
+                        </Col>
+                        <Col lg={4}>
+                          <PaginationTotalStandalone {...paginationProps} />
+                        </Col>
+                      </Row>
+                    </div>
+                  )}
+                </PaginationProvider>
+              )}
 
-                {/* END Table */}
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-      </React.Fragment>
+              {/* END Table */}
+            </Container>
+          </React.Fragment>
+        )}
+      </ToolkitProvider>
     );
   }
 }
