@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { SidebarMenu } from "./../../components";
+import { SidebarMenu } from './../../components';
 
 export const SidebarMiddleNav = () => (
   <SidebarMenu>

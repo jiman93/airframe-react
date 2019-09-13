@@ -1,18 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { map, isInteger } from "lodash";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { map, isInteger } from 'lodash';
 import {
   Pagination,
   PaginationItem,
   PaginationLink,
   Col
-} from "./../../../components";
+} from './../../../components';
 
 const mapToFa = {
-  "<": <i className="fa fa-angle-left" />,
-  "<<": <i className="fa fa-angle-double-left" />,
-  ">": <i className="fa fa-angle-right" />,
-  ">>": <i className="fa fa-angle-double-right" />
+  '<': <i className="fa fa-angle-left" />,
+  '<<': <i className="fa fa-angle-double-left" />,
+  '>': <i className="fa fa-angle-right" />,
+  '>>': <i className="fa fa-angle-double-right" />
 };
 
 export const CustomPaginationPanel = ({

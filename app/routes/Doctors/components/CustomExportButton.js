@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Button } from "./../../../components";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Button } from './../../../components';
 
 export const CustomExportCSV = ({ children, onExport, ...props }) => {
   return (
@@ -23,6 +23,6 @@ CustomExportCSV.propTypes = {
 };
 
 CustomExportCSV.defaultProps = {
-  size: "sm",
+  size: 'sm',
   outline: true
 };

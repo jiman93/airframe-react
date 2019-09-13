@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Input,
   InputGroup,
   Button,
   InputGroupAddon
-} from "./../../../components";
+} from './../../../components';
 
 export class CustomSearch extends React.Component {
   static propTypes = {
@@ -17,7 +17,7 @@ export class CustomSearch extends React.Component {
     super(props);
 
     this.state = {
-      value: ""
+      value: ''
     };
   }
 
@@ -46,7 +46,7 @@ export class CustomSearch extends React.Component {
             <Button
               outline
               onClick={() => {
-                this.setState({ value: "" });
+                this.setState({ value: '' });
               }}
             >
               <i className="fa fa-fw fa-times"></i>
