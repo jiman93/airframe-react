@@ -1,16 +1,16 @@
-import React from "react";
-import { getAllDoctors, updateDoctor } from "./actions/doctor-actions";
+import React from 'react';
+import { getAllDoctors, updateDoctor } from './actions/doctor-actions';
 
-import BootstrapTable from "react-bootstrap-table-next";
-import ToolkitProvider from "react-bootstrap-table2-toolkit";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { Container, Row, Col, ButtonGroup, Button } from "./../../components";
+import BootstrapTable from 'react-bootstrap-table-next';
+import ToolkitProvider from 'react-bootstrap-table2-toolkit';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Container, Row, Col, ButtonGroup, Button } from './../../components';
 
-import paginationFactory from "react-bootstrap-table2-paginator";
-import overlayFactory from "react-bootstrap-table2-overlay";
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import overlayFactory from 'react-bootstrap-table2-overlay';
 
-import { CustomExportCSV } from "./components/CustomExportButton";
-import { CustomSearch } from "./components/CustomSearch";
+import { CustomExportCSV } from './components/CustomExportButton';
+import { CustomSearch } from './components/CustomSearch';
 
 const sortCaret = order => {
   if (!order) return <i className="fa fa-fw fa-sort text-muted"></i>;
@@ -39,12 +39,12 @@ class Doctors extends React.Component {
     this.state = {
       resource: [],
       meta: {},
-      order: "ASC",
-      sortBy: "name",
-      filterById: "",
-      filterByName: "",
-      filterByProviderNumber: "",
-      filterbyLocation: "",
+      order: 'ASC',
+      sortBy: 'name',
+      filterById: '',
+      filterByName: '',
+      filterByProviderNumber: '',
+      filterbyLocation: '',
       sizePerPage: 10,
       page: 1,
       isLoading: false,
@@ -55,7 +55,7 @@ class Doctors extends React.Component {
   }
 
   async componentDidMount() {
-    console.log("componentDidMount");
+    console.log('componentDidMount');
     const {
       data: { resource, meta }
     } = await getAllDoctors();
@@ -74,9 +74,9 @@ class Doctors extends React.Component {
   }
 
   handleDeleteRow() {
-    console.log("deleted");
+    console.log('deleted');
     console.log(
-      "this.resource",
+      'this.resource',
       this.state.resource,
       this.state.page,
       this.state.meta
@@ -114,7 +114,7 @@ class Doctors extends React.Component {
     rowData[dataField] = newValue;
 
     const { data } = await updateDoctor(rowData);
-    console.log("Update return");
+    console.log('Update return');
     this.setState({ isLoading: false });
   };
 
@@ -122,7 +122,7 @@ class Doctors extends React.Component {
     this.setState({ isLoading: true });
     try {
       const { sizePerPage, order, sortBy } = this.state;
-      let filterParam = "";
+      let filterParam = '';
 
       if (searchText) {
         filterParam = `
@@ -142,22 +142,22 @@ class Doctors extends React.Component {
       } = await getAllDoctors(params);
       this.setState({ resource: resource, meta: meta });
     } catch (error) {
-      console.log("handleTableSearch | ERROR", error);
+      console.log('handleTableSearch | ERROR', error);
     }
     this.setState({ isLoading: false });
   };
 
   handleTableChange = async (type, newState) => {
-    console.log("type", type, newState);
-    if (type === "pagination") {
+    console.log('type', type, newState);
+    if (type === 'pagination') {
       const { page, sizePerPage } = newState;
       await this.handlePageChange(page, sizePerPage);
     }
-    if (type === "cellEdit") {
+    if (type === 'cellEdit') {
       const { data, cellEdit } = newState;
       await this.handleCellEdit(data, cellEdit);
     }
-    if (type === "search") {
+    if (type === 'search') {
       const { searchText } = newState;
       await this.handleTableSearch(searchText);
     }
@@ -170,7 +170,7 @@ class Doctors extends React.Component {
   }
 
   handleTableClick = (e, row, rowIndex) => {
-    console.log("handleTableClick", e, row, rowIndex);
+    console.log('handleTableClick', e, row, rowIndex);
   };
 
   render() {
@@ -185,54 +185,54 @@ class Doctors extends React.Component {
     } = this.state;
 
     if (resource.length < 1) {
-      return "LOADING...";
+      return 'LOADING...';
     }
 
     const columns = [
       {
-        dataField: "name",
-        text: "Name",
+        dataField: 'name',
+        text: 'Name',
         sort: true,
         sortCaret,
         formatter: cell => <span className="text-inverse">{cell}</span>
       },
       {
-        dataField: "providernumber",
-        text: "Provider Number",
+        dataField: 'providernumber',
+        text: 'Provider Number',
         sort: true,
         sortCaret
       },
       {
-        dataField: "location",
-        text: "Location",
+        dataField: 'location',
+        text: 'Location',
         sort: true,
         sortCaret
       },
       {
-        dataField: "practice",
-        text: "Practice",
+        dataField: 'practice',
+        text: 'Practice',
         sort: true,
         sortCaret
       },
       {
-        dataField: "verified",
-        text: "Verified",
+        dataField: 'verified',
+        text: 'Verified',
         sort: true,
         sortCaret
       },
       {
-        dataField: "status",
-        text: "Status",
+        dataField: 'status',
+        text: 'Status',
         sort: true,
         sortCaret
       },
       {
-        text: "Edit",
-        dataField: "id",
+        text: 'Edit',
+        dataField: 'id',
         formatter: cell => (
           <i
             className="fa fa-fw fa-edit"
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
             onClick={this.toggle}
           />
         )
@@ -291,7 +291,7 @@ class Doctors extends React.Component {
                   styles: {
                     overlay: base => ({
                       ...base,
-                      background: "rgba(255, 255, 255, 0.5)"
+                      background: 'rgba(255, 255, 255, 0.5)'
                     })
                   }
                 })}
@@ -316,7 +316,7 @@ class Doctors extends React.Component {
                 <ModalFooter>
                   <Button color="primary" onClick={this.toggle}>
                     Do Something
-                  </Button>{" "}
+                  </Button>{' '}
                   <Button color="secondary" onClick={this.toggle}>
                     Cancel
                   </Button>

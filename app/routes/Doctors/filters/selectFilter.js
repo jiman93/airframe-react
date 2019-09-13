@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import _ from "lodash";
-import { customFilter } from "react-bootstrap-table2-filter";
-import uid from "uuid/v4";
+import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import { customFilter } from 'react-bootstrap-table2-filter';
+import uid from 'uuid/v4';
 
-import { CustomInput, Input } from "./../../../components";
+import { CustomInput, Input } from './../../../components';
 
 class SelectFilter extends React.Component {
   static propTypes = {
@@ -20,7 +20,7 @@ class SelectFilter extends React.Component {
     super();
 
     this.state = {
-      value: ""
+      value: ''
     };
     this.inputId = uid();
     this.handleClick = this.handleClick.bind(this);

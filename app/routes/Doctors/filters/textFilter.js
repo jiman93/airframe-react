@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import _ from "lodash";
-import { customFilter } from "react-bootstrap-table2-filter";
+import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import { customFilter } from 'react-bootstrap-table2-filter';
 
-import { Form, Input } from "./../../../components";
+import { Form, Input } from './../../../components';
 
 class TextFilter extends React.Component {
   static propTypes = {
@@ -18,7 +18,7 @@ class TextFilter extends React.Component {
     super();
 
     this.state = {
-      value: ""
+      value: ''
     };
 
     this.handleClick = this.handleClick.bind(this);

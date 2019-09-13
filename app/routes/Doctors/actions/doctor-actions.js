@@ -1,15 +1,15 @@
-import axios from "../../../utils/axios";
-import api from "../../../utils/api";
-import qs from "qs";
+import axios from '../../../utils/axios';
+import api from '../../../utils/api';
+import qs from 'qs';
 
 const defaultParams = {
   include_count: true,
   continue: true,
-  order: "ASC",
-  sortBy: "name",
-  filter: "",
-  limit: "10",
-  offset: "0"
+  order: 'ASC',
+  sortBy: 'name',
+  filter: '',
+  limit: '10',
+  offset: '0'
 };
 
 const formatParams = params => {
@@ -26,7 +26,7 @@ const formatParams = params => {
 };
 
 export const getAllDoctors = async (params = defaultParams) => {
-  console.log("API | GET | /Doctors");
+  console.log('API | GET | /Doctors');
   const formattedParams = formatParams(params);
   const url = `${api.doctorApiBaseUrl}/Doctors?${qs.stringify(
     formattedParams
@@ -35,7 +35,7 @@ export const getAllDoctors = async (params = defaultParams) => {
 };
 
 export const updateDoctor = async data => {
-  console.log("API | PATCH | /Doctors");
+  console.log('API | PATCH | /Doctors');
   const url = `${api.doctorApiBaseUrl}/Doctors`;
   const updatedData = { resource: [data] };
   return axios.patch(url, updatedData);

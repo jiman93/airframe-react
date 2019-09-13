@@ -1,23 +1,23 @@
-import React from "react";
-import PropTypes from "prop-types";
-import _ from "lodash";
-import uid from "uuid/v4";
+import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import uid from 'uuid/v4';
 import {
   customFilter,
   Comparator,
   FILTER_TYPES
-} from "react-bootstrap-table2-filter";
+} from 'react-bootstrap-table2-filter';
 
-import { CustomInput, Input } from "./../../../components";
+import { CustomInput, Input } from './../../../components';
 
 const comparatorSign = comp => {
   switch (comp) {
     case Comparator.EQ:
-      return "=";
+      return '=';
     case Comparator.GT:
-      return ">";
+      return '>';
     case Comparator.LT:
-      return "<";
+      return '<';
   }
 };
 
@@ -41,7 +41,7 @@ class NumberFilter extends React.Component {
     super(props);
 
     this.state = {
-      value: "",
+      value: '',
       comparator: props.comparator
     };
 
