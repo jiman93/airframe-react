@@ -4,7 +4,7 @@
   "description": "Seed project for flexible light React/Bootstrap 4 dashboards.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"No test specified\"",
     "start": "npm run start:dev",
     "build": "npm run build:prod",
     "build:dev": "node ./build/cli-tools.js --clear dist --create dist && webpack --config ./build/webpack.config.client.dev.js",
